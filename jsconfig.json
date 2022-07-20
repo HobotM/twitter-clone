@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "baseUrl": "."
+    }
+}
+
+//import x from 'components/x'
