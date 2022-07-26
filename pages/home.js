@@ -3,10 +3,15 @@ import NewTweet from 'components/NewTweet'
 
 export default function Home() {
     const {data: session, status} = useSession()
+    const loading = status === 'loading'
 
-    if (status === 'loading')
+    if (loading)
     {
-        return <p>...loading</p>
+        return null
+    }
+
+    if(!session){
+        router.push('/')
     }
 
     return(
