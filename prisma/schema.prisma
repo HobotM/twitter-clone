@@ -22,7 +22,6 @@ model User {
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
-
   tweets        Tweet[]
 }
 
