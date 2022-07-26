@@ -22,6 +22,8 @@ model User {
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
+
+  tweets        Tweet[]
 }
 
 model VerificationToken {
@@ -59,4 +61,13 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Tweet {
+  id        Int      @id @default(autoincrement())
+  parent    Int?
+  createdAt DateTime @default(now())
+  content   String?
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
 }
