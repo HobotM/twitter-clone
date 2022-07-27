@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { useRouter } from 'next/router';
 
 export default function NewTweet() {
   const [content, setContent] = useState();
   const { data: session } = useSession();
+  const router = useRouter();
 
   //don't display if we're not logged in
   if (!session) return null;
 
   return (
     <form
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
 
         if (!content) {
@@ -19,7 +21,7 @@ export default function NewTweet() {
         }
 
         ///sending content data to the server
-        fetch('/api/tweet',{
+        await fetch('/api/tweet',{
           method: 'POST',
           headers: {
             'Content-Type' : 'application/json'
@@ -28,6 +30,8 @@ export default function NewTweet() {
             content,
           })
         })
+
+        router.reload(window.location.pathname) // reloads afer added tweet
       }}
     >
       <div className="flex">
